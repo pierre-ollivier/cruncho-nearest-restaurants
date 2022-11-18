@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import './back/main.js';
+import { getAPIResults } from './back/main.js';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	console.log("Before function call");
+	getAPIResults();
+	console.log(getAPIResults());
+	console.log("After function call");
+	return (
+		<div className="App">
+			<header className="App-header">
+				<p>
+					Hello World!
+				</p>
+			</header>
+		</div>
+	);
 }
 
 export default App;
