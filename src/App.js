@@ -1,12 +1,12 @@
 import './App.css';
-import './back/main.js';
-import { getAPIResults } from './back/main.js';
+import { getPosition, getPositionError, getPositionSuccess, options } from './back/main.ts';
+import './back/main.ts';
+import { getAPIResults } from './back/main.ts';
 
 function App() {
-	console.log("Before function call");
 	getAPIResults();
 	console.log(getAPIResults());
-	console.log("After function call");
+	getPosition(getPositionSuccess, getPositionError, options)
 	return (
 		<div className="App">
 			<header className="App-header">

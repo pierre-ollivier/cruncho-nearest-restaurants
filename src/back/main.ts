@@ -19,3 +19,26 @@ export function getAPIResults() {
         .then((response) => response.json())
         .then((data) => { console.log(data); });
 };
+
+export function getPositionSuccess(pos: GeolocationPosition) {
+    var crd = pos.coords;
+
+    console.log('Your current position is:');
+    console.log(`Latitude: ${crd.latitude}`);
+    console.log(`Longitude: ${crd.longitude}`);
+    console.log(`The accuracy is ${crd.accuracy} meters.`);
+}
+
+export function getPositionError(err: GeolocationPositionError) {
+    console.warn(`ERROR (${err.code}): ${err.message}`);
+}
+
+export var options = {
+    enableHighAccuracy: true,
+    timeout: 10000, // If no answer within 10 seconds, consider that the geolocalisation failed
+    maximumAge: 300000 // maximum duration during which the position is stored in cache
+};
+
+export function getPosition(success: (pos: GeolocationPosition) => void, error: (err: GeolocationPositionError) => void, options: PositionOptions | undefined) {
+    navigator.geolocation.getCurrentPosition(success, error, options);
+}
