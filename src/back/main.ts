@@ -1,6 +1,6 @@
 const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
-const latitude = 48.89;
-const longitude = 2.33;
+var latitude = 48.89;
+var longitude = 2.33;
 
 console.log("File main.js is reached.");
 
@@ -14,7 +14,6 @@ export function getAPIResults() {
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS'
         }
     };
-    console.log(`https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=restaurant&key=${API_KEY}`)
     return fetch(`https://whispering-caverns-88652.herokuapp.com/` + `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=1500&type=restaurant&key=${API_KEY}`, requestOptions)
         .then((response) => response.json())
         .then((data) => { console.log(data); });
@@ -22,11 +21,12 @@ export function getAPIResults() {
 
 export function getPositionSuccess(pos: GeolocationPosition) {
     var crd = pos.coords;
-
     console.log('Your current position is:');
     console.log(`Latitude: ${crd.latitude}`);
     console.log(`Longitude: ${crd.longitude}`);
     console.log(`The accuracy is ${crd.accuracy} meters.`);
+    latitude = crd.latitude;
+    longitude = crd.longitude;
 }
 
 export function getPositionError(err: GeolocationPositionError) {
@@ -41,4 +41,12 @@ export var options = {
 
 export function getPosition(success: (pos: GeolocationPosition) => void, error: (err: GeolocationPositionError) => void, options: PositionOptions | undefined) {
     navigator.geolocation.getCurrentPosition(success, error, options);
+}
+
+export function getLongitude() {
+    return longitude;
+}
+
+export function getLatitude() {
+    return latitude;
 }
