@@ -35,12 +35,14 @@ function App() {
 
 		else {
 			let restaurant = new Restaurant(restaurants[i]);
+			let distance = restaurant.distanceToSphericalCoords(latitude, longitude);
 			return (
 				<tr>
 					<td>{restaurant.name}</td>
 					<td>{restaurant.address}</td>
+					<td>{displayDistanceInKilometers(distance)[0]}.{displayDistanceInKilometers(distance)[1]} km</td>
 					<td>{restaurant.rating}</td>
-					<td>{restaurant.distanceToSphericalCoords(latitude, longitude)}</td>
+					<td>{restaurant.price}</td>
 				</tr>
 			)
 		}
@@ -72,13 +74,7 @@ function App() {
 		<div className="App">
 			<header className="App-header">
 				<p>
-					Hello!
-				</p>
-				<p>
-					Your coordinates are: {latitude}, {longitude}.
-				</p>
-				<p>
-					Here are the 10 closest restaurants from your position:
+					Hello! Here are the 10 closest restaurants from your position:
 				</p>
 				<ReactTableContainer width="auto" height="500px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
 					<table>
@@ -89,8 +85,9 @@ function App() {
 							<tr>
 								<th>Restaurant name</th>
 								<th>Address</th>
-								<th>Rating</th>
 								<th>Distance</th>
+								<th>Rating</th>
+								<th>Price</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -110,6 +107,20 @@ function App() {
 			</header>
 		</div>
 	);
+}
+
+function displayDistanceInKilometers(distance) {
+	// If the distance is 2 kilometers or less, keep a 0.1 km precision
+	if (distance <= 2000) {
+		return [Math.floor(Math.round(distance / 100) / 10), Math.round(distance / 100) % 10];
+	}
+	// If the distance is 9.5 kilometers or less, keep a 0.5 km precision
+	if (distance <= 95000) {
+		distance = (distance + 250) % 500;
+		return [Math.floor(Math.round(distance / 100) / 10), Math.round(distance / 100) % 10];
+	}
+	// Otherwise, keep a 1 km precision
+	return [Math.round(distance / 1000), 0];
 }
 
 export default App;

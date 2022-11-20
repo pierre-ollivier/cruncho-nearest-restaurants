@@ -6,6 +6,7 @@ export default class Restaurant {
     address: string;
     longitude: number;
     latitude: number;
+    price: number;
 
     constructor(info: Object) {
         console.log("Enter constructor");
@@ -14,6 +15,9 @@ export default class Restaurant {
         this.address = info["vicinity"];
         this.longitude = info["geometry"]["location"]["lng"];
         this.latitude = info["geometry"]["location"]["lat"];
+        if ("price_level" in info) {
+            this.price = info["price_level"];
+        }
     }
 
     distanceToSphericalCoords(lat: number, lon: number) {
