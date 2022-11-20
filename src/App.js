@@ -4,16 +4,8 @@ import './back/main.ts';
 import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
 import Restaurant from "./restaurant.ts";
-/*
-var latitude = 0.;
-var longitude = 0.;
-*/
-const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
 
-const initialState = {
-	lat: 0,
-	lon: 0,
-}
+const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
 
 function reducer(state, action) {
 
@@ -25,7 +17,6 @@ function App() {
 	const [longitude, setLongitude] = useState(0);
 	const [latitude, setLatitude] = useState(0);
 	const [restaurants, setRestaurants] = useState([null, null, null, null, null, null, null, null, null, null]);
-	const [strRestaurants, setStrRestaurants] = useState("");
 
 	function getPosition(success, error, options) {
 		navigator.geolocation.getCurrentPosition(success, error, options);
@@ -37,39 +28,22 @@ function App() {
 		setLatitude(crd.latitude);
 	};
 
-	function updateStrRestaurants() {
-		console.log(restaurants)
-		var strR = "";
-		if (restaurants.length !== 0) {
-			for (let i = 0; i < 10; i++) {
-				if (restaurants[i] !== null) {
-					strR += restaurants[i]["name"];
-				}
-			}
-			setStrRestaurants(strR);
-		}
-	}
-
-	function getNameFromRestaurant(i) {
-		if (restaurants.length === 0 || restaurants[i] === null) {
-			return "-";
-		}
-		else {
-			console.log("Entering else");
-			let r = new Restaurant(restaurants[i]["name"], restaurants[i]["rating"]);
-			console.log("Restaurant constructed");
-			return r.getName();
-		}
-	}
-
 	function displayRestaurant(i) {
-		return (
-			<tr>
-				<td>{i + 1}</td>
-				<td>{getNameFromRestaurant(i)}</td>
-				<td>.</td>
-			</tr>
-		)
+		if (restaurants.length === 0 || restaurants[i] === null) {
+			return;
+		}
+
+		else {
+			let restaurant = new Restaurant(restaurants[i]);
+			return (
+				<tr>
+					<td>{i + 1}</td>
+					<td>{restaurant.name}</td>
+					<td>{restaurant.rating}</td>
+					<td>.</td>
+				</tr>
+			)
+		}
 	}
 
 	getPosition(success0, getPositionError, options);
@@ -93,10 +67,6 @@ function App() {
 		getRestaurantsData();
 	}, [latitude]); //As soon as `latitude` changes, run getRestaurantsData
 
-	useEffect(() => {
-		updateStrRestaurants();
-	}, [restaurants]);
-
 
 	return (
 		<div className="App">
@@ -110,7 +80,7 @@ function App() {
 				<p>
 					Here are the 10 closest restaurants from your position:
 				</p>
-				<ReactTableContainer width="auto" height="500px">
+				<ReactTableContainer width="auto" height="500px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
 					<table>
 						<colgroup>
 							<col span="1" className="" />
@@ -119,7 +89,8 @@ function App() {
 							<tr>
 								<th>Restaurant number</th>
 								<th>Restaurant name</th>
-								<th>Distance from your location</th>
+								<th>Rating</th>
+								<th>Distance</th>
 							</tr>
 						</thead>
 						<tbody>
