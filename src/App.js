@@ -3,6 +3,7 @@ import { getPositionError, options } from './back/main.ts';
 import './back/main.ts';
 import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
+import Restaurant from "./restaurant.ts";
 /*
 var latitude = 0.;
 var longitude = 0.;
@@ -37,7 +38,6 @@ function App() {
 	};
 
 	function updateStrRestaurants() {
-		console.log("Entered updateStrRestaurants")
 		console.log(restaurants)
 		var strR = "";
 		if (restaurants.length !== 0) {
@@ -51,11 +51,14 @@ function App() {
 	}
 
 	function getNameFromRestaurant(i) {
-		if (restaurants[i] == null) {
+		if (restaurants.length === 0 || restaurants[i] === null) {
 			return "-";
 		}
 		else {
-			return restaurants[i]["name"];
+			console.log("Entering else");
+			let r = new Restaurant(restaurants[i]["name"], restaurants[i]["rating"]);
+			console.log("Restaurant constructed");
+			return r.getName();
 		}
 	}
 
