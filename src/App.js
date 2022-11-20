@@ -37,10 +37,10 @@ function App() {
 			let restaurant = new Restaurant(restaurants[i]);
 			return (
 				<tr>
-					<td>{i + 1}</td>
 					<td>{restaurant.name}</td>
+					<td>{restaurant.address}</td>
 					<td>{restaurant.rating}</td>
-					<td>.</td>
+					<td>{restaurant.distanceToSphericalCoords(latitude, longitude)}</td>
 				</tr>
 			)
 		}
@@ -87,8 +87,8 @@ function App() {
 						</colgroup>
 						<thead>
 							<tr>
-								<th>Restaurant number</th>
 								<th>Restaurant name</th>
+								<th>Address</th>
 								<th>Rating</th>
 								<th>Distance</th>
 							</tr>
@@ -111,19 +111,5 @@ function App() {
 		</div>
 	);
 }
-
-/*
-function getPositionSuccess(pos) {
-	var crd = pos.coords;
-	console.log('Your current position is:');
-	console.log(`Latitude: ${crd.latitude}`);
-	console.log(`Longitude: ${crd.longitude}`);
-	console.log(`The accuracy is ${crd.accuracy} meters.`);
-
-	latitude = crd.latitude;
-	longitude = crd.longitude;
-}*/
-
-
 
 export default App;
