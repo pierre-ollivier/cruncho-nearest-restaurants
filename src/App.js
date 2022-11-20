@@ -59,6 +59,16 @@ function App() {
 		}
 	}
 
+	function displayRestaurant(i) {
+		return (
+			<tr>
+				<td>{i + 1}</td>
+				<td>{getNameFromRestaurant(i)}</td>
+				<td>.</td>
+			</tr>
+		)
+	}
+
 	getPosition(success0, getPositionError, options);
 
 	var getRestaurantsData = async () => {
@@ -110,56 +120,16 @@ function App() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>1</td>
-								<td>{getNameFromRestaurant(0)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>{getNameFromRestaurant(1)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>3</td>
-								<td>{getNameFromRestaurant(2)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>4</td>
-								<td>{getNameFromRestaurant(3)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>5</td>
-								<td>{getNameFromRestaurant(4)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>6</td>
-								<td>{getNameFromRestaurant(5)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>7</td>
-								<td>{getNameFromRestaurant(6)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>8</td>
-								<td>{getNameFromRestaurant(7)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>9</td>
-								<td>{getNameFromRestaurant(8)}</td>
-								<td>.</td>
-							</tr>
-							<tr>
-								<td>10</td>
-								<td>{getNameFromRestaurant(9)}</td>
-								<td>.</td>
-							</tr>
+							{displayRestaurant(0)}
+							{displayRestaurant(1)}
+							{displayRestaurant(2)}
+							{displayRestaurant(3)}
+							{displayRestaurant(4)}
+							{displayRestaurant(5)}
+							{displayRestaurant(6)}
+							{displayRestaurant(7)}
+							{displayRestaurant(8)}
+							{displayRestaurant(9)}
 						</tbody>
 					</table>
 				</ReactTableContainer>
