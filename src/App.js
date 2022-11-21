@@ -1,20 +1,12 @@
 import './App.css';
-import { getPositionError, options } from './back/main.ts';
 import './back/main.ts';
 import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
 import Restaurant from "./restaurant.ts";
 import sortRestaurants from './utils.js';
-//import maps from 'react-google-maps';
 import Map from "./map";
-//import maps from 'google/maps';
-//import * as utils from './utils.js';
 
 const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
-
-function reducer(state, action) {
-
-}
 
 const PRICE_INDEX_TO_STR = {
 	1: "Cheap",
@@ -29,17 +21,30 @@ function App() {
 	const [restaurants, setRestaurants] = useState([null, null, null, null, null, null, null, null, null, null]);
 	const [restaurantsGathered, setRestaurantsGathered] = useState(false);
 
-	function getPosition(success, error, options) {
-		navigator.geolocation.getCurrentPosition(success, error, options);
+	function getPosition(success, error, getPositionOptions) {
+		navigator.geolocation.getCurrentPosition(success, error, getPositionOptions);
 	};
 
-	function success0(pos) {
+	function getPositionSuccess(pos) {
 		var crd = pos.coords;
 		setLongitude(crd.longitude);
 		setLatitude(crd.latitude);
 	};
 
+	function getPositionError(err) {
+		console.warn(`ERROR (${err.code}): ${err.message}`);
+	}
+
+	var getPositionOptions = {
+		enableHighAccuracy: true,
+		timeout: 10000, // If no answer within 4 seconds, consider that the geolocalisation failed
+		maximumAge: 300000 // maximum duration during which the position is stored in cache
+	};
+
 	function displayRestaurant(i) {
+		/**
+		 * Displays the restaurant (ranked `i` in `restaurants`) in the ReactTableContainer.
+		 */
 		if (restaurants.length === 0 || restaurants[i] === null) {
 			return;
 		}
@@ -79,6 +84,9 @@ function App() {
 	}
 
 	function displayRestaurants() {
+		/**
+		 * Successively displays the restaurant in the ReactTableContainer.
+		 */
 		if (restaurants.length === 0) {
 			return;
 		}
@@ -113,9 +121,12 @@ function App() {
 		}
 	}
 
-	getPosition(success0, getPositionError, options);
+	getPosition(getPositionSuccess, getPositionError, getPositionOptions);
 
 	function topMessage() {
+		/**
+		 * Displays the status message: either acquiring localization/nearby restaurants, or presenting the table.
+		 */
 		if (longitude === 0 && latitude === 0) {
 			return (
 				<p>
@@ -142,6 +153,9 @@ function App() {
 	}
 
 	var getRestaurantsData = async () => {
+		/**
+		 * Links a request to the update of the `restaurants` list.
+		 */
 		const requestOptions = {
 			method: 'GET',
 			headers: {
