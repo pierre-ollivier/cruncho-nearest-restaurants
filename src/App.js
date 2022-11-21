@@ -140,7 +140,7 @@ function App() {
 				</p>
 				<div class="row">
 					<div class="column left">
-						<ReactTableContainer width="auto" height="500px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
+						<ReactTableContainer width="auto" height="auto" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
 							<table>
 								<colgroup>
 									<col span="1" className="" />

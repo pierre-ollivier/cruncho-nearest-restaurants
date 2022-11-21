@@ -47,7 +47,7 @@ const Map = ({ latitude, longitude, restaurants, display }) => {
         }
     }
 
-    return <div id="map" ref={ref} style={{ width: "70%", height: mapHeight }} />;
+    return <div id="map" ref={ref} style={{ width: "100%", height: mapHeight }} />;
 };
 
 export default Map;

@@ -17,9 +17,10 @@ code {
 }
 
 .left {
-  width: 65%;
+  width: 68%;
 }
 
 .right {
-  width: 35%;
+  width: 32%;
+  align-content: center;
 }
