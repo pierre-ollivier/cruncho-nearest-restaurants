@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #dc9c24;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  -webkit-text-stroke: 1px;
+  -webkit-text-stroke-color: black;
+  background-image: url("../images/restaurant_1920_1280_edited.jpg");
 }
 
 .App-link {
@@ -32,6 +35,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
