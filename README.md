@@ -5,9 +5,15 @@
 This project uses your localization and the Google Maps API to find and display the 10 closest restaurants from your current position. \
 This project was made by Pierre Ollivier for [Cruncho](https://cruncho.com). and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# Limits
+## Functionalities
 
-The maximum count of requests allowed by the Google Maps API is 6000 by minute.
+Once the localization is enabled and the request succeed, the application displays 10 restaurants close to your position, ordered by their distance. The name, address, rating and indicative price of the restaurant are displayed when they are available. \
+The map on the right is interactive. You can zoom in and out, and you can click on the markers to get the name of the restaurant that you selected.
+
+## API information
+
+The maximum count of requests allowed by the Google Maps API is 6000 by minute. \
+Note that an API key was generated and put directly inside the code to let you experiment the app. You can of course replace it with your own API key. Note that the API key may be suspended anytime and without any notice.
 
 # Frequent issues
 
