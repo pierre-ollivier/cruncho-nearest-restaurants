@@ -3,7 +3,7 @@
 ![image](https://user-images.githubusercontent.com/99399264/203172854-c548491f-9a34-42b3-b6d4-18d7b0f9b790.png)
 
 This project uses your localization and the Google Maps API to find and display the 10 closest restaurants from your current position. \
-This project was made by Pierre Ollivier for [Cruncho](https://cruncho.com). and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was made by Pierre Ollivier for [Cruncho](https://cruncho.com), and bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Functionalities
 
