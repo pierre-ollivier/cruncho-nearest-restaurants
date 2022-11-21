@@ -123,7 +123,7 @@ function App() {
 	function drawReactTableContainer(draw) {
 		if (draw) {
 			return (
-				<ReactTableContainer width="auto" height="auto" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
+				<ReactTableContainer width="auto" height="600px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
 					<table>
 						<colgroup>
 							<col span="1" className="" />
@@ -193,7 +193,16 @@ function App() {
 		};
 		return fetch(`https://whispering-caverns-88652.herokuapp.com/` + `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=15000&type=restaurant&key=${API_KEY}`, requestOptions)
 			.then((response) => response.json())
-			.then((data) => { console.log(data); setRestaurants(rearrangeRestaurants(data.results)); setRestaurantsGathered(true); });
+			.then((data) => {
+				console.log(data);
+				if (data.status === "OK") {
+					setRestaurants(rearrangeRestaurants(data.results));
+					setRestaurantsGathered(true);
+				}
+				else {
+					getRestaurantsData();
+				}
+			});
 	};
 
 	getPosition(getPositionSuccess, getPositionError, getPositionOptions);
