@@ -8,10 +8,12 @@ import Map from "./map";
 const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
 
 const PRICE_INDEX_TO_STR = {
+	0: "Very cheap",
 	1: "Cheap",
 	2: "Average",
 	3: "Expensive",
-	4: "Very expensive"
+	4: "Very expensive",
+	100: "?",
 }
 
 function App() {

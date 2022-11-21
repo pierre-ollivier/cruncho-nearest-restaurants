@@ -20,6 +20,9 @@ export default class Restaurant {
             if ("price_level" in info) {
                 this.price = info["price_level"];
             }
+            else {
+                this.price = 100; // Corresponds to `unknown`
+            }
         }
     }
 
@@ -31,10 +34,14 @@ export default class Restaurant {
 }
 
 function sinD(angle: number) {
+    /**
+     * Returns the sine of `angle` when `angle` is exprimed in degrees.
+     */
     return Math.sin(angle * Math.PI / 180);
 }
 function cosD(angle: number) {
+    /**
+     * Returns the cosine of `angle` when `angle` is exprimed in degrees.
+     */
     return Math.cos(angle * Math.PI / 180);
 }
-
-// export default Restaurant;
