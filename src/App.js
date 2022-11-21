@@ -4,6 +4,8 @@ import './back/main.ts';
 import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
 import Restaurant from "./restaurant.ts";
+import sortRestaurants from './utils.js';
+//import * as utils from './utils.js';
 
 const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
 
@@ -11,7 +13,12 @@ function reducer(state, action) {
 
 }
 
-
+const PRICE_INDEX_TO_STR = {
+	1: "Cheap",
+	2: "Average",
+	3: "Expensive",
+	4: "Very expensive"
+}
 
 function App() {
 	const [longitude, setLongitude] = useState(0);
@@ -42,8 +49,38 @@ function App() {
 					<td>{restaurant.address}</td>
 					<td>{displayDistanceInKilometers(distance)[0]}.{displayDistanceInKilometers(distance)[1]} km</td>
 					<td>{restaurant.rating}</td>
-					<td>{restaurant.price}</td>
+					<td>{PRICE_INDEX_TO_STR[restaurant.price]}</td>
 				</tr>
+			)
+		}
+	}
+
+	function displayRestaurants() {
+		if (restaurants.length === 0) {
+			return;
+		}
+
+		else {
+			let distances = [];
+			for (let i = 0; i < 20; i++) {
+				let restaurant = new Restaurant(restaurants[i]);
+				let distance = restaurant.distanceToSphericalCoords(latitude, longitude);
+				distances.push(distance);
+			}
+			let ranksByDistances = sortRestaurants(distances);
+			return (
+				<tbody>
+					{displayRestaurant(ranksByDistances[0])}
+					{displayRestaurant(ranksByDistances[1])}
+					{displayRestaurant(ranksByDistances[2])}
+					{displayRestaurant(ranksByDistances[3])}
+					{displayRestaurant(ranksByDistances[4])}
+					{displayRestaurant(ranksByDistances[5])}
+					{displayRestaurant(ranksByDistances[6])}
+					{displayRestaurant(ranksByDistances[7])}
+					{displayRestaurant(ranksByDistances[8])}
+					{displayRestaurant(ranksByDistances[9])}
+				</tbody>
 			)
 		}
 	}
@@ -90,18 +127,7 @@ function App() {
 								<th>Price</th>
 							</tr>
 						</thead>
-						<tbody>
-							{displayRestaurant(0)}
-							{displayRestaurant(1)}
-							{displayRestaurant(2)}
-							{displayRestaurant(3)}
-							{displayRestaurant(4)}
-							{displayRestaurant(5)}
-							{displayRestaurant(6)}
-							{displayRestaurant(7)}
-							{displayRestaurant(8)}
-							{displayRestaurant(9)}
-						</tbody>
+						{displayRestaurants()}
 					</table>
 				</ReactTableContainer>
 			</header>
@@ -115,8 +141,8 @@ function displayDistanceInKilometers(distance) {
 		return [Math.floor(Math.round(distance / 100) / 10), Math.round(distance / 100) % 10];
 	}
 	// If the distance is 9.5 kilometers or less, keep a 0.5 km precision
-	if (distance <= 95000) {
-		distance = (distance + 250) % 500;
+	if (distance <= 9500) {
+		distance = (distance + 250) - (distance + 250) % 500;
 		return [Math.floor(Math.round(distance / 100) / 10), Math.round(distance / 100) % 10];
 	}
 	// Otherwise, keep a 1 km precision

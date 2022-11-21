@@ -10,13 +10,19 @@ export default class Restaurant {
 
     constructor(info: Object) {
         console.log("Enter constructor");
-        this.name = info["name"];
-        this.rating = info["rating"];
-        this.address = info["vicinity"];
-        this.longitude = info["geometry"]["location"]["lng"];
-        this.latitude = info["geometry"]["location"]["lat"];
-        if ("price_level" in info) {
-            this.price = info["price_level"];
+        if (info !== null && info !== undefined) {
+            console.log("info")
+            console.log(info)
+            if ("name" in info) this.name = info["name"];
+            if ("rating" in info) this.rating = info["rating"];
+            if ("vicinity" in info) this.address = info["vicinity"];
+            if ("geometry" in info) {
+                this.longitude = info["geometry"]["location"]["lng"];
+                this.latitude = info["geometry"]["location"]["lat"];
+            }
+            if ("price_level" in info) {
+                this.price = info["price_level"];
+            }
         }
     }
 
