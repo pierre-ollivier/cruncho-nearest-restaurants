@@ -2,7 +2,7 @@
 
 This project uses your localization and the Google Maps API to find and display the 10 closest restaurants from your current position. \
 This project was made by Pierre Ollivier for [Cruncho](https://cruncho.com). \
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). \
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 # Limits
 
@@ -18,7 +18,7 @@ If the application is blocked and says "Crunching restaurant data", there might 
 The first step is to clone this repository where you want to find the application, running the following command: \
 `git clone https://github.com/pierre-ollivier/cruncho-nearest-restaurants.git` \
 or \
-`git clone git@github.com:pierre-ollivier/cruncho-nearest-restaurants.git`. \
+`git clone git@github.com:pierre-ollivier/cruncho-nearest-restaurants.git`.
 
 Then, in the project directory, you can run:
 
