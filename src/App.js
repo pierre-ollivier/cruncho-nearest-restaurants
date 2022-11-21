@@ -138,25 +138,32 @@ function App() {
 				<p>
 					Hello! Here are the 10 closest restaurants from your position:
 				</p>
-				<ReactTableContainer width="auto" height="500px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
-					<table>
-						<colgroup>
-							<col span="1" className="" />
-						</colgroup>
-						<thead>
-							<tr>
-								<th>Restaurant name</th>
-								<th>Address</th>
-								<th>Distance</th>
-								<th>Rating</th>
-								<th>Price</th>
-							</tr>
-						</thead>
-						{displayRestaurants()}
-					</table>
-				</ReactTableContainer>
+				<div class="row">
+					<div class="column left">
+						<ReactTableContainer width="auto" height="500px" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
+							<table>
+								<colgroup>
+									<col span="1" className="" />
+								</colgroup>
+								<thead>
+									<tr>
+										<th>Restaurant name</th>
+										<th>Address</th>
+										<th>Distance</th>
+										<th>Rating</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+								{displayRestaurants()}
+							</table>
+						</ReactTableContainer>
+					</div>
+					<div class="column right">
+						{addMap(restaurantsGathered)}
+					</div>
+				</div>
 
-				{addMap(restaurantsGathered)}
+
 			</header>
 		</div>
 	);
