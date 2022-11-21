@@ -102,15 +102,44 @@ function App() {
 	}
 
 	function addMap(draw) {
+		/**
+		 * Displays the map, if and only if restaurants have been found.
+		 */
 		if (draw) {
 			return <Map latitude={latitude} longitude={longitude} restaurants={restaurants} display={true} />
 		}
 		else {
-			return <p>Searching for restaurants...</p>
+			return <p></p>
 		}
 	}
 
 	getPosition(success0, getPositionError, options);
+
+	function topMessage() {
+		if (longitude === 0 && latitude === 0) {
+			return (
+				<p>
+					Hello!
+					Acquiring your localization...
+				</p>
+			)
+		}
+		else if (!restaurantsGathered) {
+			return (
+				<p>
+					Hello!
+					Crunching restaurant data...
+				</p>
+			)
+		}
+		else {
+			return (
+				<p>
+					Hello! Here are the 10 closest restaurants from your position:
+				</p>
+			)
+		}
+	}
 
 	var getRestaurantsData = async () => {
 		const requestOptions = {
@@ -135,9 +164,7 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<p>
-					Hello! Here are the 10 closest restaurants from your position:
-				</p>
+				{topMessage()}
 				<div class="row">
 					<div class="column left">
 						<ReactTableContainer width="auto" height="auto" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
