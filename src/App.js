@@ -5,6 +5,9 @@ import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
 import Restaurant from "./restaurant.ts";
 import sortRestaurants from './utils.js';
+//import maps from 'react-google-maps';
+import Map from "./map";
+//import maps from 'google/maps';
 //import * as utils from './utils.js';
 
 const API_KEY = "AIzaSyDqPP6IuL439Wik7i9T-DIDFCvsMC0pjuM";
@@ -22,8 +25,9 @@ const PRICE_INDEX_TO_STR = {
 
 function App() {
 	const [longitude, setLongitude] = useState(0);
-	const [latitude, setLatitude] = useState(0);
+	const [latitude, setLatitude] = useState(20);
 	const [restaurants, setRestaurants] = useState([null, null, null, null, null, null, null, null, null, null]);
+	const [restaurantsGathered, setRestaurantsGathered] = useState(false);
 
 	function getPosition(success, error, options) {
 		navigator.geolocation.getCurrentPosition(success, error, options);
@@ -55,33 +59,54 @@ function App() {
 		}
 	}
 
+	function rearrangeRestaurants(restaurants) {
+		/**
+		 * Returns a list featuring the order of the restaurant when they are sorted by distance.
+		 * Exemple: if the distances are [200, 300, 100, 400, 600, 550], the output will be [2, 3, 1, 4, 6, 5].
+		 */
+		let distances = [];
+		let orderedRestaurants = [];
+		for (let i = 0; i < restaurants.length; i++) {
+			let restaurant = new Restaurant(restaurants[i]);
+			let distance = restaurant.distanceToSphericalCoords(latitude, longitude);
+			distances.push(distance);
+		}
+		let ranksByDistances = sortRestaurants(distances);
+		for (let i = 0; i < restaurants.length; i++) {
+			orderedRestaurants.push(restaurants[ranksByDistances[i]]);
+		}
+		return orderedRestaurants;
+	}
+
 	function displayRestaurants() {
 		if (restaurants.length === 0) {
 			return;
 		}
 
 		else {
-			let distances = [];
-			for (let i = 0; i < 20; i++) {
-				let restaurant = new Restaurant(restaurants[i]);
-				let distance = restaurant.distanceToSphericalCoords(latitude, longitude);
-				distances.push(distance);
-			}
-			let ranksByDistances = sortRestaurants(distances);
 			return (
 				<tbody>
-					{displayRestaurant(ranksByDistances[0])}
-					{displayRestaurant(ranksByDistances[1])}
-					{displayRestaurant(ranksByDistances[2])}
-					{displayRestaurant(ranksByDistances[3])}
-					{displayRestaurant(ranksByDistances[4])}
-					{displayRestaurant(ranksByDistances[5])}
-					{displayRestaurant(ranksByDistances[6])}
-					{displayRestaurant(ranksByDistances[7])}
-					{displayRestaurant(ranksByDistances[8])}
-					{displayRestaurant(ranksByDistances[9])}
+					{displayRestaurant(0)}
+					{displayRestaurant(1)}
+					{displayRestaurant(2)}
+					{displayRestaurant(3)}
+					{displayRestaurant(4)}
+					{displayRestaurant(5)}
+					{displayRestaurant(6)}
+					{displayRestaurant(7)}
+					{displayRestaurant(8)}
+					{displayRestaurant(9)}
 				</tbody>
 			)
+		}
+	}
+
+	function addMap(draw) {
+		if (draw) {
+			return <Map latitude={latitude} longitude={longitude} restaurants={restaurants} display={true} />
+		}
+		else {
+			return <p>Searching for restaurants...</p>
 		}
 	}
 
@@ -99,7 +124,7 @@ function App() {
 		};
 		return fetch(`https://whispering-caverns-88652.herokuapp.com/` + `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${latitude},${longitude}&radius=15000&type=restaurant&key=${API_KEY}`, requestOptions)
 			.then((response) => response.json())
-			.then((data) => { console.log(data); setRestaurants(data.results) });
+			.then((data) => { console.log(data); setRestaurants(rearrangeRestaurants(data.results)); setRestaurantsGathered(true); });
 	};
 
 	useEffect(() => {
@@ -130,6 +155,8 @@ function App() {
 						{displayRestaurants()}
 					</table>
 				</ReactTableContainer>
+
+				{addMap(restaurantsGathered)}
 			</header>
 		</div>
 	);
