@@ -17,7 +17,7 @@ const Map = ({ latitude, longitude, restaurants, display }) => {
         },
     );
 
-    let mapHeight = 400;
+    let mapHeight = 600;
     if (document.getElementById("map")) {
         mapHeight = document.getElementById('map').clientHeight
     }
