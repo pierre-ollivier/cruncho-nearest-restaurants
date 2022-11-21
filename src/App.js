@@ -120,7 +120,34 @@ function App() {
 		}
 	}
 
-	getPosition(getPositionSuccess, getPositionError, getPositionOptions);
+	function drawReactTableContainer(draw) {
+		if (draw) {
+			return (
+				<ReactTableContainer width="auto" height="auto" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
+					<table>
+						<colgroup>
+							<col span="1" className="" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>Restaurant name</th>
+								<th>Address</th>
+								<th>Distance</th>
+								<th>Rating</th>
+								<th>Price</th>
+							</tr>
+						</thead>
+						{displayRestaurants()}
+					</table>
+				</ReactTableContainer>
+			)
+		}
+		else {
+			return <p></p>
+		}
+	}
+
+
 
 	function topMessage() {
 		/**
@@ -169,6 +196,8 @@ function App() {
 			.then((data) => { console.log(data); setRestaurants(rearrangeRestaurants(data.results)); setRestaurantsGathered(true); });
 	};
 
+	getPosition(getPositionSuccess, getPositionError, getPositionOptions);
+
 	useEffect(() => {
 		getRestaurantsData();
 	}, [latitude]); //As soon as `latitude` changes, run getRestaurantsData
@@ -180,23 +209,7 @@ function App() {
 				{topMessage()}
 				<div class="row">
 					<div class="column left">
-						<ReactTableContainer width="auto" height="auto" borderCollapse="separate" borderSpacing="10px 10px" padding="15px">
-							<table>
-								<colgroup>
-									<col span="1" className="" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th>Restaurant name</th>
-										<th>Address</th>
-										<th>Distance</th>
-										<th>Rating</th>
-										<th>Price</th>
-									</tr>
-								</thead>
-								{displayRestaurants()}
-							</table>
-						</ReactTableContainer>
+						{drawReactTableContainer(restaurantsGathered)}
 					</div>
 					<div class="column right">
 						{addMap(restaurantsGathered)}
