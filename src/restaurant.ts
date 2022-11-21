@@ -9,10 +9,7 @@ export default class Restaurant {
     price: number;
 
     constructor(info: Object) {
-        console.log("Enter constructor");
         if (info !== null && info !== undefined) {
-            console.log("info")
-            console.log(info)
             if ("name" in info) this.name = info["name"];
             if ("rating" in info) this.rating = info["rating"];
             if ("vicinity" in info) this.address = info["vicinity"];
