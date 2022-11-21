@@ -1,5 +1,4 @@
 import './App.css';
-import './back/main.ts';
 import React, { useState, useEffect } from 'react';
 import ReactTableContainer from "react-table-container";
 import Restaurant from "./restaurant.ts";
