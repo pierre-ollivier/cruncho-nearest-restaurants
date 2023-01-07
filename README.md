@@ -12,8 +12,7 @@ The map on the right is interactive. You can zoom in and out, and you can click 
 
 ## API information
 
-The maximum count of requests allowed by the Google Maps API is 6000 by minute. \
-Note that an API key was generated and put directly inside the code to let you experiment the app. You can of course replace it with your own API key. Note that the API key may be suspended anytime and without any notice.
+An API key was generated and put directly inside the code to enable the reader to test the app. However, this API key got deleted on January 7, 2023. To test the app, you now have to create your own Google API key.
 
 # Frequent issues
 
